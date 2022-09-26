@@ -24,6 +24,8 @@ function ensure_moz_symlink() {
 		echo "$0: ~/.mozilla is a directory where it should be a symbolic link, moving..."
 		if [ -d ~/.mozilla ]; then
 			mv -v ~/.mozilla /var/stu/$USER/.mozilla
+		else
+		    mkdir -p /var/stu/$USER/.mozilla
 		fi
 		ln -sf /var/stu/$USER/.mozilla ~/.mozilla
 	fi
