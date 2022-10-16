@@ -37,6 +37,9 @@ function ensure_arbitrary_symlink() {
 	if [ ! -h ~/$1 ]; then
 		echo "$0: ~/$1 is a directory where it should be a symbolic link, moving..."
 		if [ -d ~/$1 ]; then
+			if [ -d /var/stu/$USER/$2 ]; then
+				mv /var/stu/$USER/$2 /var/stu/$USER/$2.old
+			fi
 			mv -v ~/$1 /var/stu/$USER/$2
 		else
 			mkdir -p /var/stu/$USER/$2
