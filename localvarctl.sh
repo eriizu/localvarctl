@@ -33,6 +33,21 @@ function ensure_moz_symlink() {
 	echo " --> done: ensure_moz_symlink"
 }
 
+function ensure_arbitrary_symlink() {
+	if [ ! -h ~/$1 ]; then
+		echo "$0: ~/$1 is a directory where it should be a symbolic link, moving..."
+		if [ -d ~/$1 ]; then
+			mv -v ~/$1 /var/stu/$USER/$2
+		else
+			mkdir -p /var/stu/$USER/$2
+		fi
+		ln -sf /var/stu/$USER/$2 ~/$1
+	fi
+
+	echo " --> done: ensure_moz_symlink"
+}
+
+
 function ensure_local_cache() {
 	if [ ! -h ~/.cache ]; then
 		echo "$0: ~/.cache is a directory where it should be a symbolic link, moving..."
@@ -89,7 +104,11 @@ function save() {
 }
 
 ensure_local_stu_var
-ensure_moz_symlink
+ensure_arbitrary_symlink ".mozilla" ".mozilla"
+ensure_arbitrary_symlink ".vscode" "vscode"
+ensure_arbitrary_symlink ".config/Code" "config-vscode"
+ensure_arbitrary_symlink ".config/chromium" "config-chromium"
+ensure_arbitrary_symlink ".local/share" "local-share"
 ensure_local_cache
 mkdir -pv ~/.local/stu/
 
