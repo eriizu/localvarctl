@@ -38,13 +38,13 @@ function ensure_arbitrary_symlink() {
 		echo "$0: ~/$1 is a directory where it should be a symbolic link, moving..."
 		if [ -d ~/$1 ]; then
 			if [ -d /var/stu/$USER/$2 ]; then
-				mv /var/stu/$USER/$2 /var/stu/$USER/$2.old
+				mv -v /var/stu/$USER/$2 /var/stu/$USER/$2.old
 			fi
 			mv -v ~/$1 /var/stu/$USER/$2
 		else
-			mkdir -p /var/stu/$USER/$2
+			mkdir -vp /var/stu/$USER/$2
 		fi
-		ln -sf /var/stu/$USER/$2 ~/$1
+		ln -vsf /var/stu/$USER/$2 ~/$1
 	fi
 
 	echo " --> done: ensure_moz_symlink"
